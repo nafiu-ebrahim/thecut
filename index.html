@@ -2,229 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>THE CUT LOUNGE PRO | Brooklyn's Finest</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE CUT LOUNGE PRO | Brooklyn’s Premier Grooming Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --gold: #D4AF37;
-            --black: #050505;
-            --dark-grey: #121212;
-            --border: rgba(255, 255, 255, 0.1);
-            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* --- GLOBAL --- */
+        :root { --gold: #D4AF37; --black: #050505; --dark: #121212; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--black); 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+        body { background: var(--black); color: #fff; font-family: 'Inter', sans-serif; }
+        
+        /* HERO BLEND ENGINE */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-bg { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+            filter: brightness(0.4);
         }
+        .hero-content { z-index: 2; text-align: center; }
+        .hero-content h1 { font-family: 'Bebas Neue'; font-size: clamp(5rem, 15vw, 12rem); line-height: 0.8; letter-spacing: -3px; }
+        .hero-content p { color: var(--gold); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 30px; }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 25px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            transition: var(--transition);
-        }
-        nav.active { background: rgba(5,5,5,0.95); padding: 15px 5%; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
-        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
-        .gold { color: var(--gold); }
+        /* AUTHORITY GRID */
+        .showcase { padding: 120px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .card { height: 450px; background: #1a1a1a; position: relative; border: 1px solid #333; overflow: hidden; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+        .card:hover img { transform: scale(1.1); }
 
-        /* --- HERO --- */
-        .hero {
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            text-align: center; position: relative; overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -1; filter: brightness(0.3); transform: scale(1.05);
-        }
-        .hero-content h1 {
-            font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 15vw, 10rem);
-            line-height: 0.85; letter-spacing: -2px; margin-bottom: 20px;
-        }
-        .hero-content p { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 10px; color: var(--gold); margin-bottom: 40px; }
+        /* REVIEWS MODULE */
+        .reviews { padding: 100px 5%; background: var(--dark); }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .r-card { padding: 40px; border-left: 2px solid var(--gold); background: #000; }
+        .r-name { color: var(--gold); font-weight: 900; margin-top: 20px; display: block; }
 
-        .btn {
-            display: inline-block; padding: 20px 50px; background: var(--gold); color: #000;
-            text-decoration: none; font-weight: 900; font-size: 0.75rem; text-transform: uppercase;
-            letter-spacing: 3px; transition: var(--transition); border: 1px solid var(--gold);
-        }
-        .btn:hover { background: transparent; color: var(--gold); transform: translateY(-5px); }
-
-        /* --- AUTHORITY GRID (4 IMAGES) --- */
-        .gallery { padding: 100px 5%; }
-        .grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
-        }
-        .grid-item { position: relative; height: 500px; overflow: hidden; border: 1px solid var(--border); }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); opacity: 0.7; }
-        .grid-item:hover img { transform: scale(1.1); opacity: 1; }
-        .grid-label { position: absolute; bottom: 20px; left: 20px; font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; }
-
-        /* --- SERVICES --- */
-        .services { padding: 100px 5%; background: var(--dark-grey); display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
-        .s-box { background: var(--black); padding: 80px 40px; transition: var(--transition); }
-        .s-box:hover { background: #0a0a0a; }
-        .s-box h3 { font-family: 'Bebas Neue'; font-size: 2rem; margin-bottom: 15px; letter-spacing: 1px; }
-        .s-box .price { color: var(--gold); font-weight: 900; font-size: 1.5rem; display: block; margin-bottom: 20px; }
-        .s-box p { color: #888; line-height: 1.8; font-size: 0.9rem; }
-
-        /* --- BOOKING & MAP --- */
-        .location { padding: 100px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .booking-form { background: #0a0a0a; padding: 60px; border: 1px solid var(--border); }
-        .input-group { margin-bottom: 30px; position: relative; }
-        input, select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; padding: 15px 0; color: #fff; font-family: inherit; font-size: 1rem; }
-        input:focus { outline: none; border-bottom-color: var(--gold); }
-        label { position: absolute; top: 15px; left: 0; color: #555; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; pointer-events: none; }
-        input:focus ~ label, input:valid ~ label { top: -20px; color: var(--gold); }
-
-        .map-container { min-height: 400px; filter: grayscale(1) invert(1) contrast(1.2); border: 1px solid var(--border); }
-
-        /* --- FOOTER --- */
-        footer { padding: 80px 5%; border-top: 1px solid var(--border); text-align: center; }
-        .footer-logo { font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 20px; }
-        .copy { font-size: 0.6rem; color: #444; letter-spacing: 4px; text-transform: uppercase; }
-
-        @media (max-width: 1024px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-            .location, .services { grid-template-columns: 1fr; }
-        }
+        /* BOOKING & MAP */
+        .contact-wrap { padding: 120px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .form-input { width: 100%; background: none; border: none; border-bottom: 1px solid #444; padding: 20px 0; color: #fff; }
+        .btn { padding: 20px 50px; background: var(--gold); border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <nav id="navbar">
-        <div class="nav-logo">THE CUT LOUNGE <span class="gold">PRO</span></div>
-        <div style="font-weight: 700; font-size: 0.7rem; letter-spacing: 2px;">EST. 2024</div>
-    </nav>
-
     <header class="hero">
-        <img src="image_fba9de.png" class="hero-bg" alt="Lounge">
+        <img src="image_fba9de.png" class="hero-bg" alt="Barbershop Background">
         <div class="hero-content">
             <p>Master Barbering Authority</p>
-            <h1>RESPECT <br>THE <span class="gold">CRAFT.</span></h1>
-            <a href="#book" class="btn">Book Now</a>
+            <h1>THE CUT <br>LOUNGE PRO</h1>
+            <a href="#book" style="color:white; text-decoration:none; border:1px solid var(--gold); padding: 15px 30px;">BOOK SESSION</a>
         </div>
     </header>
 
-    <section class="gallery">
+    <section class="showcase">
         <div class="grid">
-            <div class="grid-item">
-                <img src="image_fba9de.png" alt="Interior">
-                <div class="grid-label">THE LOUNGE</div>
-            </div>
-            <div class="grid-item">
-                <img src="pic2.jpg" alt="Fade">
-                <div class="grid-label">PRECISION</div>
-            </div>
-            <div class="grid-item">
-                <img src="pic3.jpg" alt="Beard">
-                <div class="grid-label">ARCHITECTURE</div>
-            </div>
-            <div class="grid-item">
-                <img src="pic4.jpg" alt="Finish">
-                <div class="grid-label">SIGNATURE</div>
-            </div>
+            <div class="card"><img src="image_fba9de.png"></div>
+            <div class="card"><img src="pic2.jpg"></div>
+            <div class="card"><img src="pic3.jpg"></div>
+            <div class="card"><img src="pic4.jpg"></div>
         </div>
     </section>
 
-    <section class="services">
-        <div class="s-box">
-            <span class="price">$45</span>
-            <h3>SIGNATURE CUT</h3>
-            <p>Engineered precision. Includes a luxury wash, straight-razor lineup, and elite styling.</p>
-        </div>
-        <div class="s-box">
-            <span class="price">$30</span>
-            <h3>BEARD SCULPT</h3>
-            <p>Defined geometry. Hot towel steam and essential oil infusion for a sharp finish.</p>
-        </div>
-        <div class="s-box">
-            <span class="price">$75</span>
-            <h3>THE EXECUTIVE</h3>
-            <p>The full authority package. Combined signature cut and beard architecture.</p>
+    <section class="reviews">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 60px;">CLIENT TESTIMONIALS</h2>
+        <div class="review-grid">
+            <div class="r-card">"The only place in Brooklyn where the fade is consistently surgical. Professional atmosphere, elite service." <span class="r-name">— MARCUS J.</span></div>
+            <div class="r-card">"Nafiu doesn't just cut hair, he builds character. The best lineup in the borough, period." <span class="r-name">— DARIUS K.</span></div>
+            <div class="r-card">"Fast, clean, and top-tier. I’ve been to dozens of shops, but The Cut Lounge Pro is on another level." <span class="r-name">— LEO V.</span></div>
         </div>
     </section>
 
-    <section class="location" id="book">
-        <div class="booking-form">
-            <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 40px;">GET IN THE <span class="gold">CHAIR</span></h2>
-            <form id="booking-logic">
-                <div class="input-group">
-                    <input type="text" id="name" required>
-                    <label>Full Name</label>
-                </div>
-                <div class="input-group">
-                    <select id="service" required>
-                        <option value="" disabled selected></option>
-                        <option value="Signature Cut">Signature Cut ($45)</option>
-                        <option value="Beard Sculpt">Beard Sculpt ($30)</option>
-                        <option value="The Executive">The Executive ($75)</option>
-                    </select>
-                    <label>Service</label>
-                </div>
-                <div class="input-group">
-                    <input type="datetime-local" id="time" required>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Send WhatsApp Booking</button>
-            </form>
-        </div>
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3027.356262442491!2d-73.9515598234316!3d40.6439169714032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b4395066a3d%3A0x6b4f74d0843469e!2s1495%20Nostrand%20Ave%20Store%20%231%2C%20Brooklyn%2C%20NY%2011226!5e0!3m2!1sen!2sus!4v1711200000000!5m2!1sen!2sus" 
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
+    <section class="contact-wrap" id="book">
+        <form id="booking-form" class="booking-form">
+            <input type="text" class="form-input" placeholder="Full Name" id="name" required>
+            <input type="tel" class="form-input" placeholder="Phone" id="phone" required>
+            <select class="form-input" id="service">
+                <option value="Signature Cut">Signature Cut ($45)</option>
+                <option value="Beard Sculpt">Beard Sculpt ($30)</option>
+            </select>
+            <button type="submit" class="btn" style="margin-top: 40px; width: 100%;">Confirm Booking</button>
+        </form>
+        <div style="background:#222; height: 100%; border: 1px solid var(--gold);">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.064560714774!2d-73.94720612344799!3d40.640693541786576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0350d53c3f%3A0x608139589d985a69!2s1495%20Nostrand%20Ave%2C%20Brooklyn%2C%20NY%2011226!5e0!3m2!1sen!2sus!4v1713890000000" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
-
-    <footer>
-        <div class="footer-logo">THE CUT LOUNGE <span class="gold">PRO</span></div>
-        <div class="copy">1495 NOSTRAND AVE | BROOKLYN, NY | +1 347-330-6759</div>
-    </footer>
 
     <script>
-        // NAVIGATION TRANSITION
-        window.onscroll = function() {
-            const nav = document.getElementById('navbar');
-            if (window.pageYOffset > 100) nav.classList.add('active');
-            else nav.classList.remove('active');
-        };
-
-        // WHATSAPP BOOKING LOGIC
-        document.getElementById('booking-logic').addEventListener('submit', function(e) {
+        document.getElementById('booking-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const service = document.getElementById('service').value;
-            const time = document.getElementById('time').value;
-            const text = `*THE CUT LOUNGE PRO*%0A*Name:* ${name}%0A*Service:* ${service}%0A*Time:* ${time}`;
-            window.open(`https://wa.me/13473306759?text=${text}`, '_blank');
-        });
-
-        // REVEAL ANIMATION
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.grid-item, .s-box, .booking-form').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(40px)';
-            el.style.transition = 'all 0.8s ease-out';
-            observer.observe(el);
+            window.open(`https://wa.me/13473306759?text=Booking Request for ${name} - Service: ${service}`);
         });
     </script>
 </body>
