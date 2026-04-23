@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE CUT LOUNGE PRO | Master Barbering</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;900&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --black-pure: #000000;
+            --black-matte: #0A0A0A;
+            --black-surface: #121212;
+            --white: #FFFFFF;
+            --border: rgba(255, 255, 255, 0.05);
+            --transition: all 0.5s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black-pure); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--black-pure); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        /* --- NAVIGATION (LOGO INTEGRATION) --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); transition: var(--transition);
+        }
+        nav.scrolled { padding: 15px 5%; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+        .nav-logo img { height: 45px; width: auto; } /* Controls Logo Size */
+        .nav-status { font-size: 0.7rem; font-weight: 900; letter-spacing: 4px; color: #888; text-transform: uppercase; }
+
+        /* --- HERO --- */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+            filter: brightness(0.35);
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-title { font-family: 'Bebas Neue'; font-size: clamp(4rem, 12vw, 10rem); line-height: 0.85; margin-bottom: 30px; }
+        .btn-main {
+            display: inline-block; padding: 20px 50px; background: var(--gold); color: #000;
+            font-weight: 900; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
+            text-decoration: none; transition: var(--transition); border: 1px solid var(--gold);
+        }
+        .btn-main:hover { background: transparent; color: var(--gold); }
+
+        /* --- THE OWNER SECTION --- */
+        .owner-section { padding: 150px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--black-matte); }
+        .owner-img { position: relative; }
+        .owner-img img { width: 100%; border: 1px solid #222; filter: grayscale(80%); transition: 0.5s; }
+        .owner-img img:hover { filter: grayscale(0%); }
+        .owner-img::after { content: ''; position: absolute; bottom: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--gold); z-index: -1; }
+        .owner-text h2 { font-family: 'Bebas Neue'; font-size: 4rem; margin-bottom: 20px; letter-spacing: 1px; color: var(--gold); }
+        .owner-text p { color: #aaa; line-height: 1.8; margin-bottom: 30px; font-size: 1.1rem; }
+
+        /* --- THE CRAFT GALLERY (SHOP, EQUIP, WORK 1, WORK 2) --- */
+        .gallery { padding: 120px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .g-item { position: relative; height: 450px; overflow: hidden; border: 1px solid var(--border); }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); transition: var(--transition); }
+        .g-item:hover img { filter: brightness(1); transform: scale(1.05); }
+        .g-label { position: absolute; bottom: 20px; left: 20px; font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 2px; }
+
+        /* --- REVIEWS --- */
+        .reviews { padding: 100px 5%; background: var(--black-surface); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .r-card { padding: 40px; border-left: 2px solid var(--gold); background: #000; }
+        .r-text { color: #ccc; font-style: italic; margin-bottom: 20px; line-height: 1.6; }
+        .r-author { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.2rem; letter-spacing: 1px; }
+
+        /* --- BOOKING --- */
+        .booking { padding: 150px 5%; display: flex; justify-content: center; }
+        .form-box { background: var(--black-matte); padding: 60px; border: 1px solid #222; width: 100%; max-width: 800px; text-align: center; }
+        input, select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; padding: 15px 0; color: #fff; margin-bottom: 30px; font-size: 1rem; }
+        input:focus, select:focus { outline: none; border-bottom-color: var(--gold); }
+
+        @media (max-width: 900px) {
+            .owner-section, .grid { grid-template-columns: 1fr; }
+            .g-item { height: 350px; }
+            .owner-img::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="nav">
+        <div class="nav-logo">
+            <img src="logo.png" alt="TCL PRO LOGO">
+        </div>
+        <div class="nav-status">BROOKLYN, NY</div>
+    </nav>
+
+    <header class="hero">
+        <img src="image_fba9de.png" class="hero-bg" alt="Barbershop Background">
+        <div class="hero-content">
+            <h1 class="hero-title">RESPECT <br><span style="color: var(--gold);">THE CRAFT.</span></h1>
+            <a href="#book" class="btn-main">Book Your Seat</a>
+        </div>
+    </header>
+
+    <section class="owner-section">
+        <div class="owner-img">
+            <img src="owner.jpg" alt="Master Barber">
+        </div>
+        <div class="owner-text">
+            <h2>THE MASTER BEHIND <br>THE CHAIR</h2>
+            <p>With years of dedication to the craft, we don't just cut hair—we engineer personal style. Every session is a tailored experience designed to elevate your standard.</p>
+            <p>From surgical precision fades to comprehensive beard architecture, the commitment to elite grooming remains unmatched in Brooklyn.</p>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; text-align: center; margin-bottom: 60px;">THE ARSENAL & THE ART</h2>
+        <div class="grid">
+            <div class="g-item">
+                <img src="image_fba9de.png" alt="Shop Interior">
+                <div class="g-label">THE LOUNGE</div>
+            </div>
+            <div class="g-item">
+                <img src="equipment.jpg" alt="Barber Tools">
+                <div class="g-label">THE TOOLS</div>
+            </div>
+            <div class="g-item">
+                <img src="work1.jpg" alt="Precision Work">
+                <div class="g-label">PRECISION</div>
+            </div>
+            <div class="g-item">
+                <img src="work2.jpg" alt="Signature Finish">
+                <div class="g-label">SIGNATURE</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="r-card">
+            <p class="r-text">"The only place in Brooklyn where the fade is consistently surgical. Professional atmosphere, elite service."</p>
+            <div class="r-author">MARCUS J.</div>
+        </div>
+        <div class="r-card">
+            <p class="r-text">"The master barber doesn't just cut hair, he builds character. The best lineup in the borough, period."</p>
+            <div class="r-author">DARIUS K.</div>
+        </div>
+        <div class="r-card">
+            <p class="r-text">"Fast, clean, and top-tier. I’ve been to dozens of shops, but The Cut Lounge Pro is on another level."</p>
+            <div class="r-author">LEO V.</div>
+        </div>
+    </section>
+
+    <section class="booking" id="book">
+        <div class="form-box">
+            <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 40px;">SECURE YOUR <span style="color: var(--gold);">TIME</span></h2>
+            <form id="wa-form">
+                <input type="text" id="clientName" placeholder="Full Name" required>
+                <select id="clientService" required>
+                    <option value="" disabled selected>Select Service...</option>
+                    <option value="Signature Cut">Signature Cut ($45)</option>
+                    <option value="Beard Sculpt">Beard Sculpt ($30)</option>
+                    <option value="The Boss Bundle">The Boss Bundle ($75)</option>
+                </select>
+                <input type="datetime-local" id="clientDate" required>
+                <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send Request via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 5%; text-align: center; border-top: 1px solid #111;">
+        <div style="font-family: 'Bebas Neue'; font-size: 2rem; margin-bottom: 10px;">THE CUT LOUNGE PRO</div>
+        <div style="font-size: 0.7rem; color: #555; letter-spacing: 2px;">© 2026 | 1495 NOSTRAND AVE, BROOKLYN, NY</div>
+    </footer>
+
+    <script>
+        // Nav Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // WhatsApp Logic
+        document.getElementById('wa-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value;
+            const service = document.getElementById('clientService').value;
+            const date = document.getElementById('clientDate').value;
+            const message = `*THE CUT LOUNGE PRO - BOOKING*%0A%0A*Name:* ${name}%0A*Service:* ${service}%0A*Time:* ${date}`;
+            window.open(`https://wa.me/13473306759?text=${message}`, '_blank');
+        });
+    </script>
+</body>
+</html>
