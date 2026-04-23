@@ -3,100 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cut Lounge Pro | Brooklyn's Premium Barber</title>
+    <meta name="description" content="The Cut Lounge Pro - Brooklyn's premier destination for precision fades, beard grooming, and luxury men's styling.">
+    <meta name="keywords" content="Barbershop Brooklyn, Mens Grooming, Haircut NYC, The Cut Lounge Pro, Nostrand Ave Barber">
+    <title>The Cut Lounge Pro | Premium Men's Grooming & Barber</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BarberShop",
+      "name": "The Cut Lounge Pro",
+      "image": "https://thecutloungepro.com/og-image.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1495 Nostrand Ave Store #1",
+        "addressLocality": "Brooklyn",
+        "addressRegion": "NY",
+        "postalCode": "11226",
+        "addressCountry": "US"
+      },
+      "telephone": "+13473306759",
+      "priceRange": "$$",
+      "openingHours": "Mo-Su 09:00-20:00"
+    }
+    </script>
+
     <style>
-        /* THE CUT LOUNGE PRO - BRAND STYLESHEET
-           Aesthetic: Luxury Streetwear (Black & Gold)
-           Fonts: Montserrat for authority, Poppins for readability
+        /* THE CUT LOUNGE PRO - DESIGN TOKENS 
         */
         :root {
-            --primary-gold: #c5a059;
-            --bg-black: #0a0a0a;
-            --card-gray: #1a1a1a;
-            --text-white: #ffffff;
-            --transition: all 0.3s ease;
+            --gold-primary: #D4AF37;
+            --gold-secondary: #C5A059;
+            --black-pure: #000000;
+            --black-matte: #0c0c0c;
+            --black-light: #1a1a1a;
+            --white-pure: #ffffff;
+            --white-muted: #a0a0a0;
+            --transition-soft: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --container-width: 1200px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--bg-black); color: var(--text-white); line-height: 1.6; }
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--black-pure); 
+            color: var(--white-pure); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* --- NAVIGATION --- */
-        nav { position: fixed; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; z-index: 1000; background: rgba(0,0,0,0.9); }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; color: var(--primary-gold); }
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin-left: 30px; }
-        nav ul li a { color: var(--text-white); text-decoration: none; font-weight: 300; transition: var(--transition); }
-        nav ul li a:hover { color: var(--primary-gold); }
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--black-pure); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
 
-        /* --- HERO SECTION --- */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1599351431202-1e0f0137599a?auto=format&fit=crop&w=1920&q=80'); background-size: cover; text-align: center; }
-        .hero h1 { font-size: 4rem; margin-bottom: 20px; }
-        .hero span { color: var(--primary-gold); }
-        .cta-btn { padding: 15px 40px; border: 2px solid var(--primary-gold); color: var(--text-white); text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .cta-btn:hover { background: var(--primary-gold); color: black; }
+        /* TYPOGRAPHY */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; }
+        .gold-text { color: var(--gold-primary); }
 
-        /* --- SERVICES & BOOKING (Simplified Logic for single file) --- */
-        section { padding: 100px 50px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--card-gray); padding: 40px; border-top: 5px solid var(--primary-gold); }
+        /* NAVIGATION */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: var(--transition-soft);
+        }
+        nav.scrolled { padding: 12px 5%; border-bottom: 1px solid var(--gold-primary); }
+        .logo-container { font-weight: 900; font-size: 1.2rem; letter-spacing: 3px; }
+        .nav-links { display: flex; list-style: none; gap: 40px; }
+        .nav-links a { 
+            text-decoration: none; color: var(--white-pure); 
+            font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+            transition: var(--transition-soft);
+        }
+        .nav-links a:hover { color: var(--gold-primary); }
 
-        /* Form Styling */
-        form { display: flex; flex-direction: column; max-width: 600px; margin: auto; }
-        input, select { padding: 20px; margin-bottom: 20px; background: #222; border: 1px solid #333; color: white; }
+        /* HERO SECTION */
+        #hero {
+            height: 100vh; width: 100%; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; text-align: center;
+        }
+        .hero-video-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -1; filter: brightness(30%);
+        }
+        .hero-content { z-index: 10; max-width: 800px; padding: 20px; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.1rem; color: var(--white-muted); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 4px; }
+
+        .btn {
+            display: inline-block; padding: 18px 45px; font-weight: 700;
+            text-transform: uppercase; text-decoration: none; letter-spacing: 2px;
+            transition: var(--transition-soft); border-radius: 2px; cursor: pointer;
+        }
+        .btn-gold { background: var(--gold-primary); color: var(--black-pure); border: 1px solid var(--gold-primary); }
+        .btn-gold:hover { background: transparent; color: var(--gold-primary); transform: translateY(-5px); }
+        .btn-outline { border: 1px solid var(--white-pure); color: var(--white-pure); margin-left: 20px; }
+        .btn-outline:hover { border-color: var(--gold-primary); color: var(--gold-primary); }
+
+        /* SECTION TEMPLATE */
+        section { padding: 120px 5%; max-width: var(--container-width); margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; width: 50px; height: 2px; background: var(--gold-primary); transform: translateX(-50%); }
+
+        /* SERVICES GRID */
+        .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card {
+            background: var(--black-matte); padding: 50px 40px; border: 1px solid #222;
+            transition: var(--transition-soft); position: relative; overflow: hidden;
+        }
+        .service-card:hover { border-color: var(--gold-primary); transform: translateY(-10px); }
+        .service-card h3 { color: var(--gold-primary); margin-bottom: 15px; font-size: 1.4rem; }
+        .service-price { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; display: block; }
+        .service-card p { color: var(--white-muted); font-size: 0.9rem; }
+
+        /* BOOKING FORM */
+        .booking-wrapper {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+            background: var(--black-light); padding: 80px; border: 1px solid #222;
+        }
+        .booking-info h3 { font-size: 2rem; margin-bottom: 20px; }
+        .contact-detail { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; color: var(--white-muted); }
         
-        /* Footer */
-        footer { padding: 50px; text-align: center; border-top: 1px solid #222; }
+        .form-group { margin-bottom: 25px; position: relative; }
+        input, select, textarea {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid #444;
+            padding: 15px 0; color: var(--white-pure); font-family: 'Montserrat', sans-serif;
+            font-size: 1rem; transition: var(--transition-soft);
+        }
+        input:focus { border-bottom: 1px solid var(--gold-primary); }
 
-        /* --- Responsive Tweaks --- */
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } }
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #111; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-soft); opacity: 0.7; }
+        .gallery-item:hover img { transform: scale(1.1); opacity: 1; }
+
+        /* FOOTER */
+        footer { background: var(--black-pure); padding: 80px 5% 40px; border-top: 1px solid #222; text-align: center; }
+        .footer-logo { font-size: 2rem; margin-bottom: 30px; font-weight: 900; }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
+        .social-links a { color: var(--white-muted); font-size: 1.5rem; transition: var(--transition-soft); }
+        .social-links a:hover { color: var(--gold-primary); }
+        .copyright { font-size: 0.8rem; color: #444; border-top: 1px solid #111; padding-top: 40px; }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 992px) {
+            .booking-wrapper { grid-template-columns: 1fr; padding: 40px 20px; gap: 50px; }
+            .nav-links { display: none; } /* Simplified for single file example */
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-content h1 { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">THE CUT LOUNGE PRO</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
+    <nav id="navbar">
+        <div class="logo-container">THE CUT LOUNGE <span class="gold-text">PRO</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
             <li><a href="#booking">Book Now</a></li>
         </ul>
     </nav>
 
-    <header id="home" class="hero">
-        <div>
-            <h1>Precision Cuts. <br><span>Premium Experience.</span></h1>
-            <a href="#booking" class="cta-btn">Book Appointment</a>
+    <header id="hero">
+        <img class="hero-video-bg" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Barbershop Background">
+        <div class="hero-content">
+            <p>Elevate Your Aesthetic</p>
+            <h1>Precision Cuts.<br><span class="gold-text">Premium Experience.</span></h1>
+            <div style="margin-top: 40px;">
+                <a href="#booking" class="btn btn-gold">Book Appointment</a>
+                <a href="tel:+13473306759" class="btn btn-outline">Contact Shop</a>
+            </div>
         </div>
     </header>
 
     <section id="services">
-        <h2>Our Premium Services</h2>
-        <div class="grid">
-            <div class="card"><h3>Haircut</h3><p>$40 | 45 Mins</p></div>
-            <div class="card"><h3>Beard Trim</h3><p>$25 | 30 Mins</p></div>
-            <div class="card"><h3>The Signature Combo</h3><p>$60 | 60 Mins</p></div>
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p style="color: var(--white-muted)">Meticulous grooming for the modern gentleman.</p>
+        </div>
+        <div class="services-container">
+            <div class="service-card">
+                <h3>The Signature Cut</h3>
+                <span class="service-price">$45.00</span>
+                <p>Tailored precision haircut finished with a straight razor neck shave and premium styling.</p>
+            </div>
+            <div class="service-card">
+                <h3>Beard Sculpting</h3>
+                <span class="service-price">$30.00</span>
+                <p>Professional trim, shaping, and hot towel treatment for the ultimate beard profile.</p>
+            </div>
+            <div class="service-card">
+                <h3>The Full Lounge</h3>
+                <span class="service-price">$70.00</span>
+                <p>Our premier combo including a precision cut, beard detail, and cooling mask treatment.</p>
+            </div>
+            <div class="service-card">
+                <h3>Executive Shave</h3>
+                <span class="service-price">$40.00</span>
+                <p>Traditional hot towel wet shave using artisanal soaps and a straight edge razor.</p>
+            </div>
         </div>
     </section>
 
     <section id="booking">
-        <h2>Schedule Your Cut</h2>
-        <form id="bookingForm">
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="tel" id="phone" placeholder="Phone Number" required>
-            <select id="service"><option>Haircut</option><option>Combo</option></select>
-            <input type="date" id="date" required>
-            <button type="submit" class="cta-btn" style="width: 100%; border: none;">Confirm Appointment</button>
-        </form>
+        <div class="booking-wrapper">
+            <div class="booking-info">
+                <h3>Get In The <span class="gold-text">Chair.</span></h3>
+                <p style="margin-bottom: 40px; color: var(--white-muted);">Experience the highest standard of barbering in Brooklyn. Walk-ins are welcome, but appointments are prioritized.</p>
+                
+                <div class="contact-detail">
+                    <span>📍</span>
+                    <p>1495 Nostrand Ave Store #1, Brooklyn, NY 11226</p>
+                </div>
+                <div class="contact-detail">
+                    <span>📞</span>
+                    <a href="tel:+13473306759" style="color: var(--white-pure); text-decoration: none;">+1 (347) 330-6759</a>
+                </div>
+                <div class="contact-detail">
+                    <span>⏰</span>
+                    <p>Mon - Sat: 9AM - 8PM | Sun: 10AM - 6PM</p>
+                </div>
+
+                <div style="width: 100%; height: 200px; background: #111; margin-top: 30px; border: 1px solid #333; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 0.8rem; color: #444;">[Interactive Map Integration]</span>
+                </div>
+            </div>
+
+            <form class="booking-form" id="mainBookingForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="cut">Signature Cut</option>
+                        <option value="beard">Beard Sculpting</option>
+                        <option value="full">The Full Lounge</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="datetime-local" required>
+                </div>
+                <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 20px;">Request Appointment</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="section-header">
+            <h2>The Craft</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593702295094-ada35506849f?auto=format&fit=crop&w=800&q=80" alt="Work 1"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1621605815841-aa88014b9a52?auto=format&fit=crop&w=800&q=80" alt="Work 2"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512690118294-700365793f61?auto=format&fit=crop&w=800&q=80" alt="Work 3"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80" alt="Work 4"></div>
+        </div>
     </section>
 
     <footer>
-        <p>1495 Nostrand Ave Store #1, Brooklyn, NY 11226</p>
-        <p>+1 347-330-6759</p>
+        <div class="footer-logo">THE CUT LOUNGE <span class="gold-text">PRO</span></div>
+        <div class="social-links">
+            <a href="#">FB</a>
+            <a href="#">IG</a>
+            <a href="#">TW</a>
+        </div>
+        <p class="copyright">&copy; 2026 THE CUT LOUNGE PRO. ALL RIGHTS RESERVED. HANDCRAFTED IN BROOKLYN.</p>
     </footer>
 
     <script>
-        // --- BOOKING LOGIC ---
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        // --- NAVBAR SCROLL EFFECT ---
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // --- SMOOTH SCROLLING FOR NAV LINKS ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- FORM SUBMISSION LOGIC ---
+        const bookingForm = document.getElementById('mainBookingForm');
+        bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert("Thank you! Your appointment is logged.");
             
+            // Visual feedback for submission
+            const btn = bookingForm.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "PROCESSING...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert("Thank you for choosing The Cut Lounge Pro! We have received your request and will confirm your time slot via SMS shortly.");
+                btn.innerText = originalText;
+                btn.disabled = false;
+                bookingForm.reset();
+            }, 1500);
+        });
+
+        // --- REVEAL ANIMATIONS ON SCROLL ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s ease-out";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
