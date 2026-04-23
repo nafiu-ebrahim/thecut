@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cut Lounge Pro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{background:#000;color:#fff;scroll-behavior:smooth;}
+
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 50px;
+  z-index:1000;
+}
+
+header img{height:50px;}
+nav a{
+  margin-left:25px;
+  color:#fff;
+  text-decoration:none;
+  transition:.3s;
+}
+nav a:hover{color:gold;}
+
+.hero{
+  height:100vh;
+  background:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1') center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero h1{font-size:60px;}
+.hero p{margin:20px 0;}
+
+.btn{
+  background:gold;
+  color:#000;
+  padding:12px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.section{padding:80px 50px;text-align:center;}
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+
+.card{
+  background:#111;
+  padding:25px;
+  border-radius:15px;
+  transition:.3s;
+}
+.card:hover{transform:translateY(-10px);}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+.gallery img{
+  width:100%;
+  border-radius:10px;
+}
+
+.booking input, .booking select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+.testimonials{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.testimonial{
+  background:#111;
+  padding:20px;
+  border-radius:10px;
+}
+
+footer{
+  background:#111;
+  padding:30px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <!-- ADD YOUR LOGO HERE -->
+  <img src="logo.png" alt="logo">
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#booking">Booking</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Precision Cuts</h1>
+    <p>Premium Grooming Experience in Brooklyn</p>
+    <a href="#booking" class="btn">Book Now</a>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <h2>Services</h2>
+  <div class="services">
+    <div class="card">Haircut - $25</div>
+    <div class="card">Beard Trim - $15</div>
+    <div class="card">Combo - $35</div>
+    <div class="card">Kids - $20</div>
+    <div class="card">Premium - $50</div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1512690459411-b9245aed614b">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70">
+    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a">
+  </div>
+</section>
+
+<section class="section" id="booking">
+  <h2>Book Appointment</h2>
+  <div class="booking">
+    <input type="text" placeholder="Name">
+    <input type="tel" placeholder="Phone">
+
+    <select id="service">
+      <option>Haircut</option>
+      <option>Beard Trim</option>
+      <option>Combo</option>
+    </select>
+
+    <input type="date" id="date">
+    <select id="time"></select>
+
+    <button class="btn" onclick="book()">Confirm</button>
+    <p id="msg"></p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Testimonials</h2>
+  <div class="testimonials">
+    <div class="testimonial">“Best barber in Brooklyn 🔥”</div>
+    <div class="testimonial">“Clean fades every time”</div>
+    <div class="testimonial">“Professional and chill vibe”</div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>Contact</h2>
+  <p>1495 Nostrand Ave, Brooklyn</p>
+  <p><a href="tel:+13473306759" style="color:gold;">+1 347-330-6759</a></p>
+
+  <iframe src="https://maps.google.com/maps?q=1495 Nostrand Ave Brooklyn&output=embed"
+  width="100%" height="300" style="border:0;margin-top:20px;"></iframe>
+</section>
+
+<footer>
+  <p>© The Cut Lounge Pro</p>
+</footer>
+
+<script>
+// generate time slots
+let timeSelect = document.getElementById("time");
+for(let i=10;i<=20;i++){
+  timeSelect.innerHTML += `<option>${i}:00</option>`;
+}
+
+function book(){
+  document.getElementById("msg").innerText="Booking Confirmed ✅";
+}
+</script>
+
+</body>
+</html>
