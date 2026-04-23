@@ -2,95 +2,383 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE CUT LOUNGE PRO | Brooklyn’s Premier Grooming Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE CUT LOUNGE PRO | Master Barbering</title>
+    <meta name="description" content="Brooklyn's Elite Grooming Destination. Led by Nafiu.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;900&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+
     <style>
-        :root { --gold: #D4AF37; --black: #050505; --dark: #121212; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--black); color: #fff; font-family: 'Inter', sans-serif; }
-        
-        /* HERO BLEND ENGINE */
-        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-bg { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
-            filter: brightness(0.4);
+        /* =========================================
+           CORE ARCHITECTURE & DESIGN SYSTEM
+           Vibe: Luxury Streetwear / Gangsta Rich
+        ========================================= */
+        :root {
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --black-pure: #000000;
+            --black-matte: #0A0A0A;
+            --black-surface: #121212;
+            --white: #FFFFFF;
+            --gray-text: #888888;
+            --glass: rgba(255, 255, 255, 0.02);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --transition-fast: all 0.3s ease;
+            --transition-slow: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero-content { z-index: 2; text-align: center; }
-        .hero-content h1 { font-family: 'Bebas Neue'; font-size: clamp(5rem, 15vw, 12rem); line-height: 0.8; letter-spacing: -3px; }
-        .hero-content p { color: var(--gold); font-size: 1rem; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 30px; }
 
-        /* AUTHORITY GRID */
-        .showcase { padding: 120px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .card { height: 450px; background: #1a1a1a; position: relative; border: 1px solid #333; overflow: hidden; }
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
-        .card:hover img { transform: scale(1.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black-pure); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* REVIEWS MODULE */
-        .reviews { padding: 100px 5%; background: var(--dark); }
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .r-card { padding: 40px; border-left: 2px solid var(--gold); background: #000; }
-        .r-name { color: var(--gold); font-weight: 900; margin-top: 20px; display: block; }
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--black-pure); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        /* BOOKING & MAP */
-        .contact-wrap { padding: 120px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-        .form-input { width: 100%; background: none; border: none; border-bottom: 1px solid #444; padding: 20px 0; color: #fff; }
-        .btn { padding: 20px 50px; background: var(--gold); border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+        /* =========================================
+           UI ENGINES & COMPONENTS
+        ========================================= */
+        
+        /* PRELOADER */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--black-pure);
+            z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 1s ease;
+        }
+        .loader-text { font-family: 'Bebas Neue'; font-size: 3rem; color: var(--gold); letter-spacing: 5px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 20px var(--gold); } 100% { opacity: 0.5; } }
+
+        /* CUSTOM CURSOR */
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 24px; height: 24px; border: 1px solid var(--gold);
+            border-radius: 50%; pointer-events: none; z-index: 99998; mix-blend-mode: difference;
+            transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        #cursor::after { content: ''; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+        /* BUTTONS */
+        .btn-elite {
+            display: inline-block; padding: 22px 55px; background: var(--gold); color: var(--black-pure);
+            font-family: 'Inter', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: 3px;
+            font-size: 0.8rem; text-decoration: none; border: 1px solid var(--gold); transition: var(--transition-slow);
+            position: relative; overflow: hidden; cursor: pointer;
+        }
+        .btn-elite:hover { background: transparent; color: var(--gold); transform: translateY(-5px); box-shadow: 0 15px 30px var(--gold-glow); }
+
+        /* SCROLL REVEAL UTILITY */
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition-slow); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* =========================================
+           NAVIGATION
+        ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 10000; padding: 35px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); transition: var(--transition-fast);
+        }
+        nav.scrolled { padding: 20px 5%; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-subtle); }
+        .nav-brand { font-family: 'Bebas Neue'; font-size: 2rem; letter-spacing: 2px; }
+        .nav-brand span { color: var(--gold); }
+        .nav-status { font-size: 0.7rem; font-weight: 900; letter-spacing: 4px; color: var(--gray-text); text-transform: uppercase; }
+
+        /* =========================================
+           HERO SECTION (BLENDED IMAGE ENGINE)
+        ========================================= */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+            /* The blend effect into the dark background */
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+            filter: brightness(0.35) contrast(1.1); transform: scale(1.05); transition: transform 0.5s ease-out;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 1000px; padding: 0 20px; }
+        .hero-subtitle { color: var(--gold); font-size: 0.85rem; font-weight: 600; letter-spacing: 12px; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .hero-title { font-family: 'Bebas Neue'; font-size: clamp(5rem, 15vw, 12rem); line-height: 0.85; letter-spacing: -2px; margin-bottom: 40px; }
+        .hero-title span { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); font-size: 0.7em; letter-spacing: 0; }
+
+        /* =========================================
+           THE CRAFT (4 IMAGE AUTHORITY GRID)
+        ========================================= */
+        .showcase { padding: 150px 5%; background: var(--black-pure); position: relative; z-index: 5; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-family: 'Bebas Neue'; font-size: 4rem; letter-spacing: 2px; }
+        
+        .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+        .g-item { position: relative; overflow: hidden; background: var(--black-matte); border: 1px solid var(--border-subtle); height: 500px; }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(50%); transition: var(--transition-slow); }
+        .g-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.08); }
+        .g-label {
+            position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8);
+            padding: 15px 25px; border-left: 3px solid var(--gold); backdrop-filter: blur(5px);
+        }
+        .g-label h4 { font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 1px; }
+
+        /* Custom Asymmetrical Layout */
+        .span-8 { grid-column: span 8; }
+        .span-4 { grid-column: span 4; }
+
+        /* =========================================
+           FAKE REVIEWS SLIDER (SOCIAL PROOF)
+        ========================================= */
+        .reviews { padding: 120px 0; background: var(--black-matte); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); overflow: hidden; }
+        .review-track { display: flex; width: max-content; animation: scrollTrack 30s linear infinite; }
+        .review-track:hover { animation-play-state: paused; }
+        
+        @keyframes scrollTrack { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .r-card {
+            width: 450px; background: var(--black-surface); margin: 0 20px; padding: 50px;
+            border: 1px solid var(--border-subtle); position: relative;
+        }
+        .r-card::before { content: '"'; font-family: 'Playfair Display'; font-size: 6rem; color: var(--gold-glow); position: absolute; top: 10px; left: 30px; line-height: 1; }
+        .r-text { font-size: 1rem; line-height: 1.8; color: #ccc; margin-bottom: 30px; position: relative; z-index: 2; }
+        .r-author { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.4rem; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .r-author::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+
+        /* =========================================
+           SERVICES & PRICING
+        ========================================= */
+        .services { padding: 150px 5%; background: var(--black-pure); }
+        .s-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .s-card { background: var(--black-matte); padding: 60px 50px; border: 1px solid var(--border-subtle); transition: var(--transition-slow); }
+        .s-card:hover { border-color: var(--gold); transform: translateY(-10px); background: #0c0c0c; }
+        .s-price { font-family: 'Bebas Neue'; font-size: 3rem; color: var(--gold); margin-bottom: 20px; display: block; }
+        .s-title { font-weight: 900; font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .s-desc { color: var(--gray-text); line-height: 1.7; font-size: 0.95rem; }
+
+        /* =========================================
+           BOOKING ENGINE & GOOGLE MAPS
+        ========================================= */
+        .location-booking { display: grid; grid-template-columns: 1fr 1.2fr; border-top: 1px solid var(--border-subtle); }
+        
+        /* Map Side */
+        .map-wrap { position: relative; min-height: 600px; background: #111; }
+        .map-wrap iframe { width: 100%; height: 100%; border: none; filter: grayscale(100%) invert(90%) contrast(1.2); }
+        
+        /* Booking Side */
+        .booking-wrap { padding: 100px 8%; background: var(--black-surface); }
+        .form-title { font-family: 'Bebas Neue'; font-size: 3.5rem; margin-bottom: 40px; }
+        
+        .input-box { margin-bottom: 40px; position: relative; }
+        .input-box input, .input-box select {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid #333;
+            padding: 15px 0; color: var(--white); font-size: 1rem; font-family: 'Inter', sans-serif; transition: var(--transition-fast);
+        }
+        .input-box input:focus, .input-box select:focus { outline: none; border-bottom-color: var(--gold); }
+        .input-box label {
+            position: absolute; top: 15px; left: 0; color: #666; text-transform: uppercase;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; pointer-events: none; transition: var(--transition-fast);
+        }
+        .input-box input:focus ~ label, .input-box input:valid ~ label { top: -20px; color: var(--gold); font-size: 0.6rem; }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+        footer { padding: 80px 5%; background: var(--black-pure); text-align: center; border-top: 1px solid #111; }
+        .f-brand { font-family: 'Bebas Neue'; font-size: 3rem; color: #333; margin-bottom: 20px; }
+        .f-copy { color: #555; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+        @media (max-width: 1024px) {
+            .span-8, .span-4 { grid-column: span 12; height: 400px; }
+            .location-booking { grid-template-columns: 1fr; }
+            .map-wrap { min-height: 400px; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="loader-text">TCL PRO</div>
+    </div>
+
+    <div id="cursor"></div>
+
+    <nav id="nav">
+        <div class="nav-brand">THE CUT LOUNGE <span>PRO</span></div>
+        <div class="nav-status">BROOKLYN, NY</div>
+    </nav>
+
     <header class="hero">
-        <img src="image_fba9de.png" class="hero-bg" alt="Barbershop Background">
-        <div class="hero-content">
-            <p>Master Barbering Authority</p>
-            <h1>THE CUT <br>LOUNGE PRO</h1>
-            <a href="#book" style="color:white; text-decoration:none; border:1px solid var(--gold); padding: 15px 30px;">BOOK SESSION</a>
+        <img src="image_fba9de.png" class="hero-bg" id="parallax-bg" alt="Barbershop Interior">
+        <div class="hero-content reveal">
+            <span class="hero-subtitle">Owned & Operated by Nafiu</span>
+            <h1 class="hero-title">RESPECT <br><span>the</span> CRAFT.</h1>
+            <a href="#booking" class="btn-elite">Secure the Chair</a>
         </div>
     </header>
 
-    <section class="showcase">
-        <div class="grid">
-            <div class="card"><img src="image_fba9de.png"></div>
-            <div class="card"><img src="pic2.jpg"></div>
-            <div class="card"><img src="pic3.jpg"></div>
-            <div class="card"><img src="pic4.jpg"></div>
+    <section class="showcase" id="gallery">
+        <div class="section-header reveal">
+            <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; font-weight: 900; display: block; margin-bottom: 15px;">The Portfolio</span>
+            <h2>VISUAL STANDARD</h2>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="g-item span-8 reveal">
+                <img src="image_fba9de.png" alt="The Lounge">
+                <div class="g-label"><h4>THE LOUNGE</h4></div>
+            </div>
+            <div class="g-item span-4 reveal">
+                <img src="pic2.jpg" alt="Precision Work">
+                <div class="g-label"><h4>PRECISION</h4></div>
+            </div>
+            <div class="g-item span-4 reveal">
+                <img src="pic3.jpg" alt="Beard Sculpt">
+                <div class="g-label"><h4>ARCHITECTURE</h4></div>
+            </div>
+            <div class="g-item span-8 reveal">
+                <img src="pic4.jpg" alt="Signature Finish">
+                <div class="g-label"><h4>SIGNATURE</h4></div>
+            </div>
         </div>
     </section>
 
-    <section class="reviews">
-        <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 60px;">CLIENT TESTIMONIALS</h2>
-        <div class="review-grid">
-            <div class="r-card">"The only place in Brooklyn where the fade is consistently surgical. Professional atmosphere, elite service." <span class="r-name">— MARCUS J.</span></div>
-            <div class="r-card">"Nafiu doesn't just cut hair, he builds character. The best lineup in the borough, period." <span class="r-name">— DARIUS K.</span></div>
-            <div class="r-card">"Fast, clean, and top-tier. I’ve been to dozens of shops, but The Cut Lounge Pro is on another level." <span class="r-name">— LEO V.</span></div>
+    <section class="reviews reveal">
+        <div class="review-track">
+            <div class="r-card">
+                <p class="r-text">"Nafiu always makes sure the details are perfect. Hands down the best atmosphere and sharpest cuts in Brooklyn. One of one."</p>
+                <div class="r-author">PURNO</div>
+            </div>
+            <div class="r-card">
+                <p class="r-text">"I fly in from out of state just to get in this chair. The luxury streetwear vibe combined with surgical precision is unmatched."</p>
+                <div class="r-author">MARCUS J.</div>
+            </div>
+            <div class="r-card">
+                <p class="r-text">"The Cut Lounge Pro is an institution. If you want a basic haircut, go somewhere else. If you want to feel like a boss, book here."</p>
+                <div class="r-author">DARIUS K.</div>
+            </div>
+            <div class="r-card">
+                <p class="r-text">"Fast, incredibly clean, and the hot towel beard sculpt is mandatory. They treat grooming like an art form."</p>
+                <div class="r-author">LEO V.</div>
+            </div>
+            <div class="r-card">
+                <p class="r-text">"Nafiu always makes sure the details are perfect. Hands down the best atmosphere and sharpest cuts in Brooklyn. One of one."</p>
+                <div class="r-author">PURNO</div>
+            </div>
+            <div class="r-card">
+                <p class="r-text">"I fly in from out of state just to get in this chair. The luxury streetwear vibe combined with surgical precision is unmatched."</p>
+                <div class="r-author">MARCUS J.</div>
+            </div>
         </div>
     </section>
 
-    <section class="contact-wrap" id="book">
-        <form id="booking-form" class="booking-form">
-            <input type="text" class="form-input" placeholder="Full Name" id="name" required>
-            <input type="tel" class="form-input" placeholder="Phone" id="phone" required>
-            <select class="form-input" id="service">
-                <option value="Signature Cut">Signature Cut ($45)</option>
-                <option value="Beard Sculpt">Beard Sculpt ($30)</option>
-            </select>
-            <button type="submit" class="btn" style="margin-top: 40px; width: 100%;">Confirm Booking</button>
-        </form>
-        <div style="background:#222; height: 100%; border: 1px solid var(--gold);">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.064560714774!2d-73.94720612344799!3d40.640693541786576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0350d53c3f%3A0x608139589d985a69!2s1495%20Nostrand%20Ave%2C%20Brooklyn%2C%20NY%2011226!5e0!3m2!1sen!2sus!4v1713890000000" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <section class="services">
+        <div class="s-grid">
+            <div class="s-card reveal">
+                <span class="s-price">$45</span>
+                <h3 class="s-title">Signature Cut</h3>
+                <p class="s-desc">The foundation. Precision taper, fade, or tailored scissor cut. Finished with a hot lather neck shave and premium styling clay.</p>
+            </div>
+            <div class="s-card reveal">
+                <span class="s-price">$30</span>
+                <h3 class="s-title">Beard Sculpting</h3>
+                <p class="s-desc">Complete geometry correction. Includes hot towel steam, straight razor detailing, and infused essential oil conditioning.</p>
+            </div>
+            <div class="s-card reveal">
+                <span class="s-price">$75</span>
+                <h3 class="s-title">The Boss Bundle</h3>
+                <p class="s-desc">The total authority package. A seamless combination of the Signature Cut and full Beard Sculpting experience.</p>
+            </div>
         </div>
     </section>
+
+    <section class="location-booking" id="booking">
+        <div class="map-wrap">
+            <iframe src="https://maps.google.com/maps?q=1495%20Nostrand%20Ave,%20Brooklyn,%20NY&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <div class="booking-wrap">
+            <h2 class="form-title">CLAIM YOUR <br><span style="color: var(--gold);">TIME.</span></h2>
+            <form id="wa-form">
+                <div class="input-box reveal">
+                    <input type="text" id="clientName" required>
+                    <label>Full Name</label>
+                </div>
+                <div class="input-box reveal">
+                    <select id="clientService" required>
+                        <option value="" disabled selected></option>
+                        <option value="Signature Cut">Signature Cut ($45)</option>
+                        <option value="Beard Sculpt">Beard Sculpt ($30)</option>
+                        <option value="The Boss Bundle">The Boss Bundle ($75)</option>
+                    </select>
+                    <label>Select Service</label>
+                </div>
+                <div class="input-box reveal">
+                    <input type="datetime-local" id="clientDate" required>
+                </div>
+                <button type="submit" class="btn-elite reveal" style="width: 100%; border: none;">Send Request via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="f-brand">THE CUT LOUNGE PRO</div>
+        <p class="f-copy">© 2026 | 1495 NOSTRAND AVE, BROOKLYN, NY | ESTABLISHED BY NAFIU</p>
+    </footer>
 
     <script>
-        document.getElementById('booking-form').addEventListener('submit', (e) => {
+        // 1. PRELOADER LOGIC
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 1000);
+            }, 800); // Artificial delay to look premium
+        });
+
+        // 2. CUSTOM CURSOR TRACKING
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+
+        // 3. NAVBAR SCROLL & PARALLAX HERO
+        const nav = document.getElementById('nav');
+        const heroBg = document.getElementById('parallax-bg');
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
+            // Nav background
+            if (scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+            // Parallax effect on hero image
+            heroBg.style.transform = `scale(1.05) translateY(${scrollY * 0.3}px)`;
+        });
+
+        // 4. INTERSECTION OBSERVER (SCROLL REVEAL)
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Reveal only once
+                }
+            });
+        }, revealOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 5. WHATSAPP BOOKING ROUTER
+        document.getElementById('wa-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const service = document.getElementById('service').value;
-            window.open(`https://wa.me/13473306759?text=Booking Request for ${name} - Service: ${service}`);
+            const name = document.getElementById('clientName').value;
+            const service = document.getElementById('clientService').value;
+            const date = document.getElementById('clientDate').value;
+            
+            // Format the text for WhatsApp
+            const message = `*THE CUT LOUNGE PRO - VIP BOOKING*%0A%0A*Client Name:* ${name}%0A*Requested Service:* ${service}%0A*Date/Time:* ${date}%0A%0APlease confirm if this slot is available.`;
+            
+            // Open WhatsApp API (Using your number)
+            window.open(`https://wa.me/13473306759?text=${message}`, '_blank');
         });
     </script>
 </body>
